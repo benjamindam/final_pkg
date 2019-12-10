@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(linefollowertest)
+project(final_pkg)
 
 add_definitions(-std=c++11)
 
@@ -20,11 +20,28 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 
-add_executable(detect src/detect.cpp src/linedetect.cpp)
+add_executable(detect src/detect.cpp)
 target_link_libraries(detect ${catkin_LIBRARIES} ${OpenCV_LIBS})
-add_dependencies(detect linefollowertest_generate_messages_cpp)
+add_dependencies(detect final_pkg_generate_messages_cpp)
 
-add_executable(navig src/motion_node.cpp src/turtlebot.cpp)
+add_executable(navig src/motion_node.cpp)
 target_link_libraries(navig ${catkin_LIBRARIES})
-add_dependencies(navig linefollowertest_generate_messages_cpp)
+add_dependencies(navig final_pkg_generate_messages_cpp)
 
+add_executable(${PROJECT_NAME}_battery src/battery.cpp)
+set_target_properties(${PROJECT_NAME}_battery PROPERTIES OUTPUT_NAME battery PREFIX "")
+target_link_libraries(${PROJECT_NAME}_battery
+  ${catkin_LIBRARIES}
+)
+
+add_executable(${PROJECT_NAME}_dock src/dock.cpp)
+set_target_properties(${PROJECT_NAME}_dock PROPERTIES OUTPUT_NAME dock PREFIX "")
+target_link_libraries(${PROJECT_NAME}_dock
+  ${catkin_LIBRARIES}
+)
+
+add_executable(${PROJECT_NAME}_bumper src/bumper.cpp)
+set_target_properties(${PROJECT_NAME}_bumper PROPERTIES OUTPUT_NAME bumper PREFIX "")
+target_link_libraries(${PROJECT_NAME}_bumper
+  ${catkin_LIBRARIES}
+)

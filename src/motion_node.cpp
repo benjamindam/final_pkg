@@ -30,8 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/console.h"
 #include <nav_msgs/Odometry.h>
 #include <iostream>
-#include "linefollowertest/pos.h"
-#include "linefollowertest/docking.h"
+#include "final_pkg/pos.h"
+#include "final_pkg/docking.h"
 
 class turtlebot {
  public:
@@ -41,7 +41,7 @@ class turtlebot {
 *@param msg is the custom message pos which publishes a direction int between 0 and 3
 *@return none
 */
-    void dir_sub(linefollowertest::pos msg);
+    void dir_sub(final_pkg::pos msg);
 /**
 *@brief Function to publish velocity commands based on direction
 *@param velocity is the twist 
@@ -63,7 +63,7 @@ void odomCallback(const nav_msgs::Odometry &msg)
     positionY = msg.pose.pose.position.y;
     std::cout << positionX << "  " << positionY << std::endl;
 }
-void turtlebot::dir_sub(linefollowertest::pos msg) {
+void turtlebot::dir_sub(final_pkg::pos msg) {
     turtlebot::dir = msg.direction; //Funktion som tager msg.direction, som bliver published af linedetect.cpp og ligger i 
                                     //turtlebot::dir
 }
@@ -111,11 +111,11 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     turtlebot bot;                 //Laver et class objekt med navn bot. Denne class er oprettet i turtlebot.hpp
     geometry_msgs::Twist velocity; //Opretter en variabel med type geometry_msgs::Twist med navn velocity
-    linefollowertest::docking dockMsg;
+    final_pkg::docking dockMsg;
     ros::Subscriber sub = n.subscribe("/direction", 1, &turtlebot::dir_sub, &bot); //Opretter en subscriber på topic /direction
     ros::Subscriber odomSub = n.subscribe("/odom", 1, odomCallback);
     ros::Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/teleop", 10); //Opretter en publisher som publisher til /cmd_vel_mux/input/teleop
-    ros::Publisher dockPub = n.advertise<linefollowertest::docking>("/docking/event", 10);
+    ros::Publisher dockPub = n.advertise<final_pkg::docking>("/docking/event", 10);
     ros::Rate rate(10);//sætter opdateringshastighed til 10hz
     bool goal = false; 
     while (ros::ok())

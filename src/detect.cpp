@@ -5,8 +5,8 @@
 #include "opencv2/opencv.hpp"
 #include "ros/ros.h"
 #include "ros/console.h"
-#include "linefollowertest/pos.h"
-#include "linefollowertest/docking.h"
+#include "final_pkg/pos.h"
+#include "final_pkg/docking.h"
 
 
 class LineDetect {
@@ -262,8 +262,8 @@ int main(int argc, char **argv) {
     ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw",
         1, &LineDetect::imageCallback, &det); //Starter en publisher på image_raw, med en kø på 1, og med callback funktion 
         //imageCallback, som ligger i linedetect.cpp, med besked det. 
-    ros::Publisher dirPub = n.advertise<linefollowertest::pos>("direction", 1); //Starter en publisher på custom besked pos til topic "direction"
-        linefollowertest::pos msg; //Laver en variabel med type Linefollower::pos, som hedder msg.
+    ros::Publisher dirPub = n.advertise<final_pkg::pos>("direction", 1); //Starter en publisher på custom besked pos til topic "direction"
+        final_pkg::pos msg; //Laver en variabel med type Linefollower::pos, som hedder msg.
 
     while (ros::ok()) {
         if (!det.img.empty()) {//hvis der er et værdier (et billede) i variabel det.img, kør følgende
