@@ -6,7 +6,10 @@
 <!--HER ER TEMPLATE FOR NODE-->
 <!-- node pkg="final_pkg" type="navn_på_node" name="fiktivt_navn_på_node" -->
 
-<launch>
+<launch> <!--Start på hvad der skal køres-->
+
+
+
 
 
 <!-- / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / -->
@@ -19,10 +22,19 @@
 <include file="$(find kobuki_auto_docking)/launch/minimal.launch"/>
 
 
+
+
+
 <!-- / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / -->
 
 <!--OVERVÅGNING AF BATTERI-->
 <node pkg="final_pkg" type="battery" name="battery_control"/>
 
 
-</launch>
+
+
+
+
+
+
+</launch> <!--Slut på hvad der skulle køres-->
