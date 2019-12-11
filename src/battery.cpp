@@ -46,7 +46,7 @@ void batteryCallback(const kobuki_msgs::SensorState & msg)
         while(ros::Time::now() - drej < ros::Duration(3.9))
         {
            geometry_msgs::Twist move;
-            move.angular.z = 0.95;
+            move.angular.z = 0.95;                          //drejer 180 grader
             movement_pub.publish(move);
         }
     }
