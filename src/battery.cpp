@@ -35,7 +35,7 @@ void batteryCallback(const kobuki_msgs::SensorState & msg)
         ros::Publisher movement_pub = n.advertise<geometry_msgs::Twist>("mobile_base/commands/velocity",1);
         
         ros::Time start = ros::Time::now();
-        while(ros::Time::now() - start < ros::Duration(2.0)) //kør NU, i 1 sekund
+        while(ros::Time::now() - start < ros::Duration(2.0)) //kør NU, i 2 sekunder
         {
             geometry_msgs::Twist move;
             move.linear.x = -0.1;                            //kør bagud (-) med hastigheden (0.1)
