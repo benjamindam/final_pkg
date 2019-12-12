@@ -14,11 +14,11 @@ file = "$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
 </include>
 --> 
 
-<node pkg="linefollowertest" name="detection" type="detect" cwd="node" output="screen">
+<node pkg="final_pkg" name="detection" type="detect" cwd="node" output="screen">
 </node>
 
 <!-- Robot commands node -->
-<node pkg="linefollowertest" name="Velocity" type="navig" cwd="node" output="screen">
+<node pkg="final_pkg" name="Velocity" type="navig" cwd="node" output="screen">
 </node>
 
 <node

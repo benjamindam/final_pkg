@@ -197,7 +197,7 @@ int main(int argc, char **argv)
 
         if (firstcondition==true)
         {
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < 40; i++)
             {
                 velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
                 velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
@@ -234,7 +234,7 @@ int main(int argc, char **argv)
         if (thirdcondition==true)
         {
 
-            for (int i = 0; i < 95; i++)
+            for (int i = 0; i < 100; i++)
             {
                 velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
                 velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
@@ -317,7 +317,7 @@ int main(int argc, char **argv)
 
         if (IIfirstcondition==true)
         {
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < 40; i++)
             {
                 velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
                 velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
@@ -354,7 +354,7 @@ int main(int argc, char **argv)
         if (IIthirdcondition==true)
         {
 
-            for (int i = 0; i < 95; i++)
+            for (int i = 0; i < 100; i++)
             {
                 velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
                 velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
@@ -419,15 +419,13 @@ int main(int argc, char **argv)
             for (int i = 0; i < 40; i++)
             {
                 velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
                 pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
                 rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning left");//Printer i terminalen at robotten kører mod højre
+                ROS_INFO_STREAM("Turning right");//Printer i terminalen at robotten kører mod højre
             }
                 ros::Duration(2).sleep();
 
-
-                IIIsecondcondition=true;
 
                 IIIfirstcondition=false;
 
@@ -446,10 +444,10 @@ int main(int argc, char **argv)
 
 
 
-    }
+    } // if head
 
-    }
+    } // while loop
 
     return 0;
 
-}
+} // main 

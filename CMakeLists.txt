@@ -45,3 +45,9 @@ set_target_properties(${PROJECT_NAME}_bumper PROPERTIES OUTPUT_NAME bumper PREFI
 target_link_libraries(${PROJECT_NAME}_bumper
   ${catkin_LIBRARIES}
 )
+
+add_executable(${PROJECT_NAME}_buttonlaunch src/buttonlaunch.cpp)
+set_target_properties(${PROJECT_NAME}_buttonlaunch PROPERTIES OUTPUT_NAME buttonlaunch PREFIX "")
+target_link_libraries(${PROJECT_NAME}_buttonlaunch
+  ${catkin_LIBRARIES}
+)
