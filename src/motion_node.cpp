@@ -164,288 +164,244 @@ int main(int argc, char **argv)
             
             bot.vel_cmd(velocity, pub, rate);
 
-            if(thirdsequence==true ){ // så snart ruten er kørt igennem, kan robotten kører i dock
-
-            if (positionX < 0.5 && positionX > 0 )
+            if(thirdsequence==true ) // så snart ruten er kørt igennem, kan robotten kører i dock
             {
-                if (positionY > -0.0 && positionY < 0.5)
+                if (positionX < 0.5 && positionX > 0 )
                 {
-                    goal = true;
-                    dockMsg.docking = 1;
-                    dockPub.publish(dockMsg);
+                    if (positionY > -0.0 && positionY < 0.5)
+                    {
+                        goal = true;
+                        dockMsg.docking = 1;
+                        dockPub.publish(dockMsg);
+                    }
                 }
-
-
-            }
-
             } //docking condition ends here            
             
-        
-
-        if(firstsequence==false){  //first sequence starts here
-
-        if (positionX < 4.4 && positionX > 4 )                                                                                //første koordinat som skal sættes
-        {
-
-            if (positionY > -999 && positionY < 999)
+            if(firstsequence==false) //first sequence starts here
+            {
+                if (positionX < 4.4 && positionX > 4 )                                                                                //første koordinat som skal sættes
                 {
-                    std::cout << "jeg er ved første kryds" << std::endl;
-                    firstcondition=true;
-                }
-                  
-        }
-
-        if (firstcondition==true)
-        {
-            for (int i = 0; i < 40; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
-            }
-            ros::Duration(2).sleep();
-            
-
-            secondcondition=true;
-            firstcondition=false;
-        }
-
-        
-
-        if(secondcondition==true){
-
-            for (int i = 0; i < 150; i++)
-            {
-            velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-            velocity.angular.z = 0.0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-            pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-            rate.sleep();//Pauser programmet til næste cyklus
-            ROS_INFO_STREAM("Driving straight");//Printer i terminalen at robotten kører mod højre
-            }
-            ros::Duration(2).sleep();
-
-            thirdcondition=true;
-            secondcondition=false;
-
-        }
-
-        if (thirdcondition==true)
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning 180 degreees");//Printer i terminalen at robotten kører mod højre
-            }
-
-            
-
-            ros::Duration(2).sleep();
-            
-
-            thirdcondition=false;
-            fourthcondition=true;
-        }
-
-        if (fourthcondition==true)
-        {
-            while (fourthcondition==true)
-            {
-                velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
-                ros::spinOnce();
-                if (positionX < 4.4 && positionX > 4 )                                                                //koordinat skal være ens med første
-                {
-                    if ( positionY < 0.05 && positionY > -0.15)
+                    if (positionY > -999 && positionY < 999)
                     {
-
-                        std::cout << "jeg er er ved y positionen" << std::endl;
-
-                        fifthcondition=true;
-                        fourthcondition=false;
-                    }  
+                        std::cout << "jeg er ved første kryds" << std::endl;
+                        firstcondition=true;
+                    }
+                        
                 }
-            }
-        }
-        
-        if (fifthcondition==true)
-        {
 
-            for (int i = 0; i < 37; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
-            }
-            ros::Duration(2).sleep();
-            
-            
-            firstsequence=true;
-        }
-        
-
-        }  //firstsequence ends here
-
-
-
-
-
-
-
-        if(secondsequence==false){  //second sequence starts here
-
-        if (positionX > 9 && positionX < 9.4 )                                                                           // anden koordinat som skal sættes
-        {
-
-            if (positionY > -999 && positionY < 999)
+                if (firstcondition==true)
                 {
-                    std::cout << "jeg er ved anden kryds" << std::endl;
-                    IIfirstcondition=true;
+                    for (int i = 0; i < 40; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
+                    }
+                    ros::Duration(2).sleep();
+                    
+                    secondcondition=true;
+                    firstcondition=false;
                 }
-                  
-        }
 
-        if (IIfirstcondition==true)
-        {
-            for (int i = 0; i < 40; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
-            }
-            ros::Duration(2).sleep();
+                if(secondcondition==true)
+                {
+
+                    for (int i = 0; i < 150; i++)
+                    {
+                        velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0.0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Driving straight");//Printer i terminalen at robotten kører mod højre
+                    }
+                    ros::Duration(2).sleep();
+
+                    thirdcondition=true;
+                    secondcondition=false;
+                }
+
+                if (thirdcondition==true)
+                {
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning 180 degreees");//Printer i terminalen at robotten kører mod højre
+                    }
+
+                    ros::Duration(2).sleep();
+                    
+                    thirdcondition=false;
+                    fourthcondition=true;
+                }
+
+                if (fourthcondition==true)
+                {
+                    while (fourthcondition==true)
+                    {
+                        velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
+                        ros::spinOnce();
+                        if (positionX < 4.4 && positionX > 4 )                                                                //koordinat skal være ens med første
+                        {
+                            if ( positionY < 0.05 && positionY > -0.15)
+                            {
+
+                                std::cout << "jeg er er ved y positionen" << std::endl;
+
+                                fifthcondition=true;
+                                fourthcondition=false;
+                            }  
+                        }
+                    }
+                }
             
+                if (fifthcondition==true)
+                {
 
-            IIsecondcondition=true;
-            IIfirstcondition=false;
-        }
-
-        
-
-        if(IIsecondcondition==true){
-
-            for (int i = 0; i < 150; i++)
-            {
-            velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-            velocity.angular.z = 0.0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-            pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-            rate.sleep();//Pauser programmet til næste cyklus
-            ROS_INFO_STREAM("Driving straight");//Printer i terminalen at robotten kører mod højre
-            }
-            ros::Duration(2).sleep();
-
-            IIthirdcondition=true;
-            IIsecondcondition=false;
-
-        }
-
-        if (IIthirdcondition==true)
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning 180 degreees");//Printer i terminalen at robotten kører mod højre
-            }
-
-                        ros::Duration(2).sleep();
+                    for (int i = 0; i < 37; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
+                    }
+                    ros::Duration(2).sleep();
+                    
+                    firstsequence=true;
+                }
             
+            }  //firstsequence ends here
 
-                IIthirdcondition=false;
-                IIfourthcondition=true;
-        }
-
-        if (IIfourthcondition==true)
-        {
-            while (IIfourthcondition==true)
+            if(secondsequence==false) //second sequence starts here
             {
-                velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = 0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
-                ros::spinOnce();
+
+                if (positionX > 9 && positionX < 9.4 )                                                                           // anden koordinat som skal sættes
+                {
+
+                    if (positionY > -999 && positionY < 999)
+                    {
+                        std::cout << "jeg er ved anden kryds" << std::endl;
+                        IIfirstcondition=true;
+                    }
+                }
+
+                if (IIfirstcondition==true)
+                {
+                    for (int i = 0; i < 40; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
+                    }
+                    ros::Duration(2).sleep();
+                    
+                    IIsecondcondition=true;
+                    IIfirstcondition=false;
+                }
+
+                if(IIsecondcondition==true)
+                {
+                    for (int i = 0; i < 150; i++)
+                    {
+                        velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0.0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Driving straight");//Printer i terminalen at robotten kører mod højre
+                    }
+                    ros::Duration(2).sleep();
+
+                    IIthirdcondition=true;
+                    IIsecondcondition=false;
+                }
+
+                if (IIthirdcondition==true)
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning 180 degreees");//Printer i terminalen at robotten kører mod højre
+                    }
+
+                    ros::Duration(2).sleep();
                 
-                if (positionX > 9 && positionX < 9.4 )                                                                     //tredje koordinat som skal sættes, ens med 2.
+                    IIthirdcondition=false;
+                    IIfourthcondition=true;
+                }
+
+                if (IIfourthcondition==true)
+                {
+                    while (IIfourthcondition==true)
+                    {
+                        velocity.linear.x = 0.1;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = 0;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning Right");//Printer i terminalen at robotten kører mod højre
+                        ros::spinOnce();
+                        
+                        if (positionX > 9 && positionX < 9.4 )                                                                     //tredje koordinat som skal sættes, ens med 2.
+                        {
+                            if (positionY < 0.05 && positionY > -0.15)
+                            {
+                                IIfourthcondition=false;
+
+                                secondsequence=true;
+                            }  
+                        }
+                    }
+                }
+            }  //secondsequence ends here
+
+            if (secondsequence==true && thirdsequence==false) // her begynder third sequence
+            {
+                if (positionX < 9 && positionX > 9.4 )                                                                     // fjerde koordinat som skal sættes, ens med 2.
                 {
                     if (positionY < 0.05 && positionY > -0.15)
                     {
-                        IIfourthcondition=false;
+                        std::cout << "jeg er på vej tilbage" << std::endl;
 
-                        secondsequence=true;
-                    }  
+                        IIIfirstcondition=true;
+                    }
                 }
-            }
-        }
-        
 
-        }  //secondsequence ends here
-
-
-
-
-        if (secondsequence==true && thirdsequence==false){// her begynder third sequence
-
-
-            if (positionX < 9 && positionX > 9.4 )                                                                     // fjerde koordinat som skal sættes, ens med 2.
-            {
-
-                if (positionY < 0.05 && positionY > -0.15)
+                if (IIIfirstcondition==true)
                 {
-                    std::cout << "jeg er på vej tilbage" << std::endl;
+                    for (int i = 0; i < 40; i++)
+                    {
+                        velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
+                        velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
+                        rate.sleep();//Pauser programmet til næste cyklus
+                        ROS_INFO_STREAM("Turning right");//Printer i terminalen at robotten kører mod højre
+                    }
 
-                    IIIfirstcondition=true;
+                    ros::Duration(2).sleep();
+
+                    IIIfirstcondition=false;
+
+                    thirdsequence=true;
                 }
-                  
-            }
+            }   //her slutter third sequence
 
-        if (IIIfirstcondition==true)
-        {
-            for (int i = 0; i < 40; i++)
-            {
-                velocity.linear.x = 0.0;//Fortæller at variabel velocity.linear.x skal være lig 0.1
-                velocity.angular.z = -0.5;//Fortæller at variabel velocity.angular.z skal være lig -0.15
-                pub.publish(velocity);//Publisher beskeden velocity til pub, som er publisheren til turtlebotten
-                rate.sleep();//Pauser programmet til næste cyklus
-                ROS_INFO_STREAM("Turning right");//Printer i terminalen at robotten kører mod højre
-            }
-                ros::Duration(2).sleep();
+            rate.sleep(); //pauser programmet indtil næste cyklus
 
-
-                IIIfirstcondition=false;
-
-                thirdsequence=true;
-
-        }
-
-
-
-
-
-        }//her slutter third sequence
-
-        
-        rate.sleep(); //pauser programmet indtil næste cyklus
-
-
-
-    } // if head
-
+        } // if (goal=false) slutter her
     } // while loop
 
     return 0;
