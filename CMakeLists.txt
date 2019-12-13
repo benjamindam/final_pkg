@@ -51,3 +51,9 @@ set_target_properties(${PROJECT_NAME}_buttonlaunch PROPERTIES OUTPUT_NAME button
 target_link_libraries(${PROJECT_NAME}_buttonlaunch
   ${catkin_LIBRARIES}
 )
+
+add_executable(${PROJECT_NAME}_docksub src/docksub.cpp)
+set_target_properties(${PROJECT_NAME}_docksub PROPERTIES OUTPUT_NAME docksub PREFIX "")
+target_link_libraries(${PROJECT_NAME}_docksub
+  ${catkin_LIBRARIES}
+)

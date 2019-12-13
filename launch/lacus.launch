@@ -12,6 +12,7 @@
 
 <!--KONTAKT MED TURTLEBOTTEN-->
 <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+<include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
 
 <!--SKAL BRUGES FOR AT STARTE AUTODOCKING (BRUG KUN ACTIVE.LAUNCH I KODE)-->
 <include file="$(find kobuki_auto_docking)/launch/minimal.launch"/>
