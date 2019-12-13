@@ -2,11 +2,6 @@
 
 <arg name = "StartRec" default = "false" />
 
-
-
-
-
-
 <!----> Detection node -->
 <!--include 
 file = "$(find turtlebot_gazebo)/launch/turtlebot_world.launch">

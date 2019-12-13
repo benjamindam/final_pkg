@@ -46,7 +46,7 @@ void bump(const kobuki_msgs::BumperEvent &bumpMsg)
             twistMsg.angular.z = angularspeed;
             cmd_vel_pub.publish(twistMsg);
         }
-        
+
         ros::Duration(0.5).sleep();
         LEDmsg.value = 1;
         LED1_pub.publish(LEDmsg);
@@ -60,14 +60,10 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     ros::NodeHandle n;
     ros::NodeHandle m;
-    cmd_vel_pub = n.advertise<geometry_msgs::Twist>
-    ("/cmd_vel_mux/input/teleop", 1);
-    LED1_pub = n.advertise<kobuki_msgs::Led>
-    ("/mobile_base/commands/led1", 1);
-    LED2_pub = n.advertise<kobuki_msgs::Led>
-    ("/mobile_base/commands/led2", 1);
-    bumperSub = n.subscribe
-    ("/mobile_base/events/bumper", 1, bump);
+    cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/teleop", 1);
+    LED1_pub = n.advertise<kobuki_msgs::Led>("/mobile_base/commands/led1", 1);
+    LED2_pub = n.advertise<kobuki_msgs::Led>("/mobile_base/commands/led2", 1);
+    bumperSub = n.subscribe("/mobile_base/events/bumper", 1, bump);
     while (ros::ok())
     {
         ros::Duration(0.5).sleep();

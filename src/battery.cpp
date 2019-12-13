@@ -6,86 +6,82 @@
 #include <std_msgs/String.h>
 #include <kobuki_msgs/PowerSystemEvent.h>
 #include <geometry_msgs/Twist.h>
-#include <math.h> 
+#include <math.h>
 #include <sstream>
 
-int hiLo = 0;                                           //hiLo er tallet vi publisher til sidst
+int hiLo = 0; //hiLo er tallet vi publisher til sidst
 
 kobuki_msgs::SensorState msg;
 
-int chargestateCallback(const kobuki_msgs::SensorState & chg)   //callback på events for turtlebottenbotten
-{                  
-    
-    int chargingState=0;
-    chargingState = chg.charger;                        //der findes mellem 0-6 events omkring ladning. 0=lader ikke. 2=fuldopladt. 6=lader.
+int chargestateCallback(const kobuki_msgs::SensorState &chg) //callback på events for turtlebottenbotten
+{
 
-    return chargingState;                               //retunerer hvad event den opfanger den er ved
+    int chargingState = 0;
+    chargingState = chg.charger; //der findes mellem 0-6 events omkring ladning. 0=lader ikke. 2=fuldopladt. 6=lader.
+
+    return chargingState; //retunerer hvad event den opfanger den er ved
 }
 
-void batteryCallback(const kobuki_msgs::SensorState & msg)
+void batteryCallback(const kobuki_msgs::SensorState &msg)
 {
-    float batt = msg.battery;                           //batt er batteriets spænding i dV
-    
-    if(chargestateCallback(msg) == 2)                   //2 betyder fuldopladt
+    float batt = msg.battery; //batt er batteriets spænding i dV
+
+    if (chargestateCallback(msg) == 2) //2 betyder fuldopladt
     {
-        hiLo = 0;                                       //0 betyder vent
-        
+        hiLo = 0; //0 betyder vent
+
         //herunder kører den bagud
         ros::NodeHandle n;
-        ros::Publisher movement_pub = n.advertise<geometry_msgs::Twist>("mobile_base/commands/velocity",1);
-        
+        ros::Publisher movement_pub = n.advertise<geometry_msgs::Twist>("mobile_base/commands/velocity", 1);
+
         ros::Time start = ros::Time::now();
-        while(ros::Time::now() - start < ros::Duration(2.0)) //kør NU, i 2 sekunder
+        while (ros::Time::now() - start < ros::Duration(2.0)) //kør NU, i 2 sekunder
         {
             geometry_msgs::Twist move;
-            move.linear.x = -0.1;                            //kør bagud (-) med hastigheden (0.1)
+            move.linear.x = -0.1; //kør bagud (-) med hastigheden (0.1)
             movement_pub.publish(move);
         }
 
         ros::Time drej = ros::Time::now();
-        while(ros::Time::now() - drej < ros::Duration(3.9))
+        while (ros::Time::now() - drej < ros::Duration(3.9))
         {
-           geometry_msgs::Twist move;
-            move.angular.z = 0.95;                          //drejer 180 grader
+            geometry_msgs::Twist move;
+            move.angular.z = 0.95; //drejer 180 grader
             movement_pub.publish(move);
         }
     }
 
-    else if (chargestateCallback(msg) == 0)             //0 betyder den ikke lader
+    else if (chargestateCallback(msg) == 0) //0 betyder den ikke lader
     {
-        
-        if(batt < 145)                      //når spændingen er under 135 dV
-        {
-            
-            hiLo = 1;                       //1 betyder kør til dock
 
-        }
-
-        else if(batt >= 145)                //når spændingen er over eller lige med 135 dV
+        if (batt < 145) //når spændingen er under 135 dV
         {
 
-            hiLo = 2;                       //2 betyder alt er okay
-            
+            hiLo = 1; //1 betyder kør til dock
         }
-        
+
+        else if (batt >= 145) //når spændingen er over eller lige med 135 dV
+        {
+
+            hiLo = 2; //2 betyder alt er okay
+        }
     }
 
-    else                                    //hvis den ikke er 0 eller 2/hvis den ikke er fuldopladt eller ikke er uden for laderen
+    else //hvis den ikke er 0 eller 2/hvis den ikke er fuldopladt eller ikke er uden for laderen
     {
         hiLo = 0;
     }
-
 }
- 
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "battery1");
- 
+
     ros::NodeHandle n;
- 
+
     ros::Subscriber sub = n.subscribe("/mobile_base/sensors/core", 10, batteryCallback);
 
-    ros::Publisher battery_pub = n.advertise<std_msgs::String>("lav_batteri",1);
+    ros::Publisher battery_pub = n.advertise<std_msgs::String>("lav_batteri", 1);
 
     kobuki_msgs::PowerSystemEvent msg;
 
@@ -93,22 +89,20 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-    std_msgs::String msg;
+        std_msgs::String msg;
 
-    std::stringstream ss;
-    ss << hiLo;                                   //vi publisher hvad hiLo er (0, 1 eller 2)
-    msg.data = ss.str();
-   
-    std::cout << msg.data.c_str() << std::endl;
+        std::stringstream ss;
+        ss << hiLo; //vi publisher hvad hiLo er (0, 1 eller 2)
+        msg.data = ss.str();
 
-    battery_pub.publish(msg); 
+        std::cout << msg.data.c_str() << std::endl;
 
-    ros::spinOnce();
+        battery_pub.publish(msg);
 
-    loop_rate.sleep();
+        ros::spinOnce();
+
+        loop_rate.sleep();
     }
 
     return 0;
 }
-
-  

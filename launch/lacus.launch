@@ -8,33 +8,17 @@
 
 <launch> <!--Start på hvad der skal køres-->
 
-
-
-
-
 <!-- / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / LAUNCHFILER / -->
 
 <!--KONTAKT MED TURTLEBOTTEN-->
 <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
 
-
 <!--SKAL BRUGES FOR AT STARTE AUTODOCKING (BRUG KUN ACTIVE.LAUNCH I KODE)-->
 <include file="$(find kobuki_auto_docking)/launch/minimal.launch"/>
-
-
-
-
 
 <!-- / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / NODES / -->
 
 <!--OVERVÅGNING AF BATTERI-->
 <node pkg="final_pkg" type="battery" name="battery_control"/>
-
-
-
-
-
-
-
 
 </launch> <!--Slut på hvad der skulle køres-->

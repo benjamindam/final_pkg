@@ -342,8 +342,7 @@ int main(int argc, char **argv)
                 {
                     while (IIfourthcondition == true)
                     {
-                        velocity.linear.x = 0.1;          //Fortæller at variabel velocity.linear.x skal være lig 0.1
-                        velocity.angular.z = 0;           //Fortæller at variabel velocity.angular.z skal være lig -0.15
+                        velocity.linear.x = 0.1- 0;           //Fortæller at variabel velocity.angular.z skal være lig -0.15
                         pub.publish(velocity);            //Publisher beskeden velocity til pub, som er publisheren til turtlebotten
                         rate.sleep();                     //Pauser programmet til næste cyklus
                         ROS_INFO_STREAM("Turning Right"); //Printer i terminalen at robotten kører mod højre
@@ -388,7 +387,7 @@ int main(int argc, char **argv)
                     ros::Duration(2).sleep();
 
                     thirdsequence = true;
-                    
+
                     IIIfirstcondition = false;
                 }
             } //her slutter thirdsequence
