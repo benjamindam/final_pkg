@@ -1,3 +1,5 @@
+// BEMÆRK AT DENNE NODE IKKE ER I BRUG I RAPPORTEN, MEN VIL KUNNE BLIVE ET TALEEMNE ELLER UDVIKLET TIL EKSAMEN.
+
 #include <iostream>
 #include <ros/ros.h>
 #include <kobuki_msgs/ButtonEvent.h>
