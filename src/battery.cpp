@@ -75,7 +75,7 @@ void batteryCallback(const kobuki_msgs::SensorState &msg)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "battery1");
+    ros::init(argc, argv, "battery");
 
     ros::NodeHandle n;
 
