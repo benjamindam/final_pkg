@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 
     ros::Subscriber sub = n.subscribe("/mobile_base/sensors/core", 10, batteryCallback);
 
-    ros::Publisher battery_pub = n.advertise<std_msgs::String>("lav_batteri", 1);
+    ros::Publisher battery_pub = n.advertise<std_msgs::String>("bat_top", 1);
 
     kobuki_msgs::PowerSystemEvent msg;
 
