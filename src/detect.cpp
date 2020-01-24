@@ -126,7 +126,7 @@ Dette gør vi for at isolere vores gule linje.
  void cv::findContours(InputOutputArray image, OutputArrayOfArrays contours, OutputArray hierarchy,
  int mode, int method, Point offset = Point())	
 
-  Vi bruger denne funktion til at finde linjer som argrænser vores gule linje. Vi bruger vores img_mask som input
+Vi bruger denne funktion til at finde linjer som argrænser vores gule linje. Vi bruger vores img_mask som input
 Punkterne til linjerne som bliver fundet, skal lagres i en vektor defineret som std::vector<std::vector<cv::Point> >
 Derfor vi har lavet vektoren v, og denne gemmer vi disse værdier i. 
 Vi bruger RETR_LIST til at få punkterne og CHAIN_APPROX_NONE for at lagre værdierne
@@ -218,28 +218,23 @@ værdier ud.
 
   // Perform centroid detection of line
   cv::Moments M = cv::moments(LineDetect::img_mask);
-  if (M.m00 > 0)
-  {
-    cv::Point p1(M.m10 / M.m00, M.m01 / M.m00);
-    cv::circle(LineDetect::img_mask, p1, 5, cv::Scalar(155, 200, 0), -1);
-  }
-
-  c_x = M.m10 / M.m00;
+  
+  c_x = M.m10 / M.m00; // Vi laver værdien om, så den bliver værdien af centrum af den gule streg på x aksen.
   // Tolerance to chooise directions
-  auto tol = 15;
+  auto tol = 15; // Vi laver en tolerance på 15 pixels.
   auto count = cv::countNonZero(img_mask); //Denne funktion tæller hvor mange værdier i img_mask, som ikke er 0
   // Turn left if centroid is to the left of the image center minus tolerance
   // Turn right if centroid is to the right of the image center plus tolerance
   // Go straight if centroid is near image center
-  if (c_x < w / 2 - tol)
+  if (c_x < w / 2 - tol) //Hvis x værdien til stregen er mindre en bredden af billedet / 2, så skal robotten køre mod venstre, da linjen så vil være i venstre side.
   {
     LineDetect::dir = 0; //Kør til venstre
   }
-  else if (c_x > w / 2 + tol)
+  else if (c_x > w / 2 + tol) //Hvis x værdien er større end billedets bredde / 2, altså stregen er i højre side, så få robotten til at køre til højre
   {
     LineDetect::dir = 2; //Kør til højre
   }
-  else
+  else //Hvis ikke nogen af foregående er rigtige, så kør ligeud
   {
     LineDetect::dir = 1; //Kør ligeud
   }

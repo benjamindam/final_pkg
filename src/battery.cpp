@@ -83,7 +83,6 @@ int main(int argc, char **argv)
 
     ros::Publisher battery_pub = n.advertise<std_msgs::String>("bat_top", 1);
 
-    kobuki_msgs::PowerSystemEvent msg;
 
     ros::Rate loop_rate(1);
 

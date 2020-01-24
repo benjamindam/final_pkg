@@ -64,7 +64,6 @@ void callbackBump(const kobuki_msgs::BumperEvent &bumpMsg)
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "bumper");
-    srand(time(NULL));
     ros::NodeHandle n;
     cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/teleop", 1);
     LED1_pub = n.advertise<kobuki_msgs::Led>("/mobile_base/commands/led1", 1);
